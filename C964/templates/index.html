@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutation Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white text-center">
+                <h2>Mutation Prediction</h2>
+                <p>Enter mutation details below to predict its status</p>
+            </div>
+            <div class="card-body">
+                <form action="/predict" method="post" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="gene" class="form-label">Gene</label>
+                        <input type="text" class="form-control" id="gene" name="gene" placeholder="Enter gene name (e.g., BRAF)" required>
+                        <div class="invalid-feedback">Please enter a gene name.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mutation" class="form-label">Mutation</label>
+                        <input type="text" class="form-control" id="mutation" name="mutation" placeholder="Enter mutation (e.g., V600E)" required>
+                        <div class="invalid-feedback">Please enter a mutation.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mutability" class="form-label">Mutability</label>
+                        <input type="number" class="form-control" id="mutability" name="mutability" placeholder="Enter mutability value" step="any" required>
+                        <div class="invalid-feedback">Please enter a valid mutability value.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="count" class="form-label">Count</label>
+                        <input type="number" class="form-control" id="count" name="count" placeholder="Enter mutation count" required>
+                        <div class="invalid-feedback">Please enter a count value.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="b_score" class="form-label">B_Score (Optional)</label>
+                        <input type="number" class="form-control" id="b_score" name="b_score" placeholder="Enter B_Score value (if available)" step="any">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Predict</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Display Result -->
+        {% if result %}
+        <div class="card mt-4">
+            <div class="card-header bg-success text-white">
+                <h4>Prediction Result</h4>
+            </div>
+            <div class="card-body">
+                {% for key, value in result.items() %}
+                <p><strong>{{ key }}:</strong> {{ value }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Visualization Links -->
+        <div class="mt-4 text-center">
+            <h4>View Visualizations</h4>
+            <a href="/feature_importance" class="btn btn-info m-2">Feature Importance</a>
+            <a href="/confusion_matrix_static" class="btn btn-info m-2">Confusion Matrix</a>
+            <a href="/correlation_matrix" class="btn btn-info m-2">Correlation Matrix</a>
+        </div>
+        </div>
+
+
+        <footer class="text-center mt-5">
+            <p class="text-muted">© 2024 Mutation Prediction App</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Bootstrap form validation
+        (() => {
+            'use strict';
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+</body>
+</html>
