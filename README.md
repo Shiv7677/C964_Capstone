@@ -86,9 +86,7 @@ The project uses a finalized dataset named `combined_dataset_with_recalculated_q
 ## Contribution
 Contributions are welcome! Please open an issue or submit a pull request.
 
-## License
-This project is licensed under the MIT License. See `LICENSE` for more details.
 
 ## Contact
-For questions or feedback, please contact [your-email@example.com].
+For questions or feedback, please contact patelshiv7677@gmail.com.
 
